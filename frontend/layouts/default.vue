@@ -8,8 +8,8 @@
           </NuxtLink>
 
           <div class="flex gap-2">
-            <BaseNavbarlink is-button>
-              Link #1
+            <BaseNavbarlink to="/cards">
+              Cards
             </BaseNavbarlink>
 
             <BaseButton>
@@ -33,8 +33,12 @@
       </div>
     </BaseNavbar>
 
-    <div class="mx-auto px-20">
-      <slot />
-    </div>
+    <slot />
+    
+    <BaseFooter :items="items" class="mt-20" />
   </section>
 </template>
+
+<script setup lang="ts">
+import { footerData as items } from '~/data/footer';
+</script>

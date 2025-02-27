@@ -3,7 +3,7 @@
     <slot />
   </button>
 
-  <NuxtLink v-else to="/" class="text-blue-300 underline cursor-pointer underline-offset-5 hover:text-blue-500 active:text-blue-500">
+  <NuxtLink v-else :to="to" class="text-blue-300 underline cursor-pointer underline-offset-5 hover:text-blue-500 active:text-blue-500">
     <slot />
   </NuxtLink>
 </template>
@@ -13,6 +13,10 @@
 defineProps({
   isButton: {
     type: Boolean
+  },
+  to: {
+    type: String,
+    default: null
   }
 })
 </script>
