@@ -76,7 +76,10 @@ export const footerData: Footer = {
         {
             name: 'A propos',
             links: [
-
+                {
+                    name: 'Ecommerce - Products',
+                    to: '/products'
+                }
             ]
         }
     ]

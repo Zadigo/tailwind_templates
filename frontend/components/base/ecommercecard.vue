@@ -1,6 +1,8 @@
 <template>
 <div class="group relative" @mouseover="showCart=true" @mouseleave="showCart=false">
-  <img :src="src" alt="" class="w-full lg:aspect-auto">
+  <NuxtLink to="/product">
+    <img :src="src" alt="" class="w-full lg:aspect-auto">
+  </NuxtLink>
   <!-- <img :src="src" alt="Front of men's Basic Tee in black." class="aspect-square w-full bg-gray-200 object-cover lg:aspect-auto lg:h-full"> -->
 
   <!-- <div class="absolute top-0 left-0">
@@ -27,7 +29,7 @@
   <div class="mt-4 flex justify-between align-top">
     <div>
       <h3 class="text-sm text-gray-700">
-        <NuxtLink to="/">
+        <NuxtLink to="/product">
           <span aria-hidden="true" class="absolute inset-0"></span>
           Jupe en coton de soie
         </NuxtLink>

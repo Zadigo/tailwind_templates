@@ -17,15 +17,8 @@
         </template>
       </BaseCard> -->
 
-      <!-- <BaseCard src="/img1.jpg" /> -->
+      <BaseCard src="/img1.jpg" />
     </div>
-
-    <div class="h-full px-1 lg:px-1">
-      <div class="grid grid-rows-12 lg:grid-rows-1 lg:grid-cols-4 lg:gap-1">
-        <BaseEcommercecard v-for="i in 4" :key="i" :src="`/ecommerce/img${i}.jpg`" />
-      </div>
-    </div>
-
   </div>
 </template>
 

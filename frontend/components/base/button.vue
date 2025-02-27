@@ -1,10 +1,10 @@
 <template>
   <div ref="buttonEl" class="relative inline-block">
-    <NuxtLink v-if="to" :to="to" class="px-4 py-2 shadow-md rounded-md bg-blue-400 font-semibold text-white uppercase block transition-all ease-in-out duration-[3000] hover:bg-blue-500" @click="handleClick">
+    <NuxtLink v-if="to" :to="to" class="px-4 py-2 w-full shadow-md rounded-md bg-blue-400 font-semibold text-white uppercase block transition-all ease-in-out duration-[3000] hover:bg-blue-500" @click="handleClick">
       <slot />
     </NuxtLink>
 
-    <button v-else type="button" class="px-4 py-2 shadow-md rounded-md bg-blue-400 font-semibold text-white uppercase transition-all ease-in-out duration-[3000] hover:bg-blue-500" @click="handleClick">
+    <button v-else type="button" class="px-4 py-2 w-full shadow-md rounded-md bg-blue-400 font-semibold text-white uppercase transition-all ease-in-out duration-[3000] hover:bg-blue-500" @click="handleClick">
       <slot />
     </button>
 
