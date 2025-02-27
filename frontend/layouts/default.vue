@@ -1,6 +1,6 @@
 <template>
   <section id="site">
-    <BaseNavbar class="mb-20">
+    <BaseNavbar>
       <div class="mx-10">
         <div class="flex justify-between items-center">
           <NuxtLink to="/" class="font-bold uppercase text-lg">

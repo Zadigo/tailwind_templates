@@ -1,12 +1,12 @@
 <template>
   <div ref="buttonEl" class="relative inline-block">
-    <NuxtLink v-if="to" :to="to" class="px-4 py-2 w-full shadow-md rounded-md bg-blue-400 font-semibold text-white uppercase block transition-all ease-in-out duration-[3000] hover:bg-blue-500" @click="handleClick">
+    <NuxtLink v-if="to" :to="to" :class="buttonClasses" class="px-4 py-2 w-full rounded-md bg-blue-400 font-semibold uppercase block  hover:bg-blue-500" @click="handleClick">
       <slot />
     </NuxtLink>
 
-    <button v-else type="button" class="px-4 py-2 w-full shadow-md rounded-md bg-blue-400 font-semibold text-white uppercase transition-all ease-in-out duration-[3000] hover:bg-blue-500" @click="handleClick">
-      <slot />
-    </button>
+      <button v-else type="button" :class="buttonClasses" class="px-4 py-2 w-full rounded-md bg-blue-400 font-semibold uppercase hover:bg-blue-500" @click="handleClick">
+        <slot />
+      </button>
 
     <div ref="dropdownEl">
       <slot name="dropdown" :is-open="isOpen" />
@@ -15,9 +15,12 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   to: {
     type: String
+  },
+  tonal: {
+    type: Boolean
   }
 })
 
@@ -42,6 +45,16 @@ onClickOutside(buttonEl, () => {
     isOpen.value = false
     emit('open', false)
   }
+})
+
+const buttonClasses = computed(() => {
+  return [
+    'transition-all ease-in-out duration-[3000]',
+    {
+      'shadow-md text-white': !props.tonal,
+      'bg-gray-100 hover:bg-gray-100 text-black hover:bg-gray-200': props.tonal
+    }
+  ]
 })
 
 function handleClick() {
