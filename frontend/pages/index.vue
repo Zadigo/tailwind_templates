@@ -1,8 +1,6 @@
 <template>
-  <section class="site">
-    <div>
-      <h1>Inputs</h1>
-      
+  <section id="home">
+    <BaseCard title="Inputs" class="mb-3">      
       <div class="flex gap-2">
         <BaseInput v-model="search" />
 
@@ -10,7 +8,31 @@
 
         <BaseAutocomplete v-model="search" :items="items" />
       </div>
-    </div>
+    </BaseCard>
+
+    <BaseCard title="Buttons">
+      <div class="flex gap-2">
+        <BaseButton>Press me</BaseButton>
+
+        <BaseButton>
+          Dropdown
+          
+          <template #dropdown="{ isOpen }">
+            <BaseDropdown :is-open="isOpen">
+              <BaseList>
+                <BaseListitem>
+                  Option #1
+                </BaseListitem>
+
+                <BaseListitem>
+                  Option #2
+                </BaseListitem>
+              </BaseList>
+            </BaseDropdown>
+          </template>
+        </BaseButton>
+      </div>
+    </BaseCard>
   </section>
 </template>
 
