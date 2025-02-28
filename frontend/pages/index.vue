@@ -4,11 +4,11 @@
       <BaseCardbody>
         <div class="flex gap-2">
           <!-- Input -->
-          <BaseInput v-model="search" />
+          <BaseInput v-model="search" placeholder="Search" input-type="text" />
           <!-- Select -->
           <BaseSelect v-model="search" :items="items" />
           <!-- Autocomplete -->
-          <!-- <BaseAutocomplete v-model="search" :items="items" /> -->
+          <BaseAutocomplete v-model="search" :items="items" />
         </div>
       </BaseCardbody>   
     </BaseCard>
