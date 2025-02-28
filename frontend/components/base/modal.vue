@@ -1,23 +1,23 @@
 <template>
-  <!-- hidden -->
   <!-- Backdrop -->
   <div v-if="show" id="modalBackdrop" :class="backdropClasses" class="fixed inset-0 bg-black opacity-40 bg-opacity-50 transition-opacity z-40" @click="show=false" />
 
   <!-- Modal -->
   <div id="modal" :class="{ 'scale-100': show, 'scale-0': !show }" class="fixed inset-0 flex items-center justify-center z-50 transform transition-transform duration-300">
-    <div class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 p-6">
+    <div role="dialog" class="bg-white rounded-lg shadow-lg w-11/12 md:w-1/2 lg:w-1/3 p-6">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-semibold">
-          Modal Title
+          Modal title
         </h3>
-        <button id="closeModal" type="button" class="text-gray-500 cursor-pointer hover:text-gray-700 focus:outline-none" @click="show=false">
-          <Icon name="fa:close" />
-        </button>
+
+        <BaseButtonclose @click="show=false" />
       </div>
 
-      <div class="mb-4">
-        <p>This is the modal content. You can add any text or components here.</p>
-      </div>
+      <p class="font-light">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non sint eum velit, 
+        voluptatibus atque, dolorum totam laudantium, accusamus voluptatem cupiditate repudiandae 
+        enim. Eaque, harum. Facilis harum maiores explicabo animi iste.
+      </p>
 
       <div class="flex justify-end">
         Footer
@@ -25,7 +25,17 @@
     </div>
   </div>
 
-  <!-- <div class="relative">
+  <!-- Fullpage -->
+  <!-- <div :class="{ 'translate-y-0 opacity-100': show, 'translate-y-3/4 opacity-0': !show }" class="fixed inset-0 z-50 transition-transform duration-300">
+    <header class="p-5 bg-gray-100 flex justify-between">
+      My header
+      <button id="closeModal" type="button" class="text-gray-500 cursor-pointer hover:text-gray-700 focus:outline-none" @click="show=false">
+        <Icon name="fa:close" size="13" />
+      </button>
+    </header>
+    <div class="bg-white rounded-none w-full h-full p-6">
+      something
+    </div>
   </div> -->
 </template>
 
@@ -36,6 +46,9 @@ const props = defineProps({
   modelValue: {
     type: Boolean,
     required: true
+  },
+  fullpage: {
+    type: Boolean
   }
 })
 

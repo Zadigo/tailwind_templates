@@ -3,7 +3,7 @@
     <div class="grid grid-cols-12 grid-row-1 w-full gap-5">
         <!-- Images -->
       <div class="grid grid-cols-2 grid-rows-3 gap-1 col-span-8">
-        <div id="image">
+        <div id="image" class="cursor-zoom-in" @click="show=true">
           <img src="/ecommerce/dress1.jpg" alt="">
         </div>
         <div id="image">

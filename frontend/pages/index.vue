@@ -3,11 +3,12 @@
     <BaseCard title="Inputs" class="mb-3">
       <BaseCardbody>
         <div class="flex gap-2">
+          <!-- Input -->
           <BaseInput v-model="search" />
-
+          <!-- Select -->
           <BaseSelect v-model="search" :items="items" />
-
-          <BaseAutocomplete v-model="search" :items="items" />
+          <!-- Autocomplete -->
+          <!-- <BaseAutocomplete v-model="search" :items="items" /> -->
         </div>
       </BaseCardbody>   
     </BaseCard>
