@@ -21,6 +21,9 @@ const props = defineProps({
   },
   tonal: {
     type: Boolean
+  },
+  active: {
+    type: Boolean
   }
 })
 
@@ -52,7 +55,8 @@ const buttonClasses = computed(() => {
     'transition-all ease-in-out duration-[3000]',
     {
       'shadow-md text-white': !props.tonal,
-      'bg-gray-100 hover:bg-gray-100 text-black hover:bg-gray-200': props.tonal
+      'bg-gray-100 text-black hover:bg-gray-200': props.tonal,
+      'bg-gray-300': props.active && props.tonal
     }
   ]
 })
