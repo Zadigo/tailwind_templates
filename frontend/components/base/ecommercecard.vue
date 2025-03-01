@@ -18,8 +18,8 @@
       </p>
 
       <div class="flex justify-center flex-wrap gap-2">
-        <button v-for="size in product.sizes" :key="size.id" type="button" class="py-2 px-5 rounded-full text-sm flex align-middle gap-1 hover:bg-gray-50">
-          <Icon v-if="!size.availability" name="fa-regular:clock" class="text-orange-400" />
+        <button v-for="size in product.sizes" :key="size.id" type="button" class="py-1 px-4 rounded-full text-sm flex gap-1 place-items-center hover:bg-gray-50">
+          <Icon v-if="!size.availability" name="fa-regular:clock" size="11" class="text-orange-400" />
           <span>{{ size.name }}</span>
         </button>
       </div>

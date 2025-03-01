@@ -2,7 +2,7 @@ import { products } from '~/data/products'
 import type { ProductApiResponse } from '~/types'
 
 export default defineEventHandler(async event => {
-    await new Promise(resolve => setTimeout(resolve, 3000))
+    await new Promise(resolve => setTimeout(resolve, 1000))
 
     const data: ProductApiResponse =  {
         count: 10,

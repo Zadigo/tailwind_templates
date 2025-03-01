@@ -88,6 +88,12 @@
 //     created_on: string;
 // };
 
+export interface ProductImage {
+    id: number;
+    name: string;
+    original: string;
+}
+
 export interface Product {
     id: number
     name: string
@@ -97,16 +103,8 @@ export interface Product {
     sale_value: string
     sale_price: string
     on_sale: boolean
-    get_main_image: {
-        id: number;
-        name: string;
-        original: string;
-    },
-    images: {
-        id: number;
-        name: string;
-        original: string;
-    }[],
+    get_main_image: ProductImage,
+    images: ProductImage[],
     sizes: {
         id: number
         name: string
