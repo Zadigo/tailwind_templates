@@ -9,10 +9,17 @@
           <BaseSelect v-model="search" :items="items" />
           <!-- Autocomplete -->
           <BaseAutocomplete v-model="search" :items="items" />
+        </div>
+
+        <h3 class="text-1xl font-semibold mt-4 mb-2">
+          Using objects
+        </h3>
+
+        <div class="flex gap-2">
           <!-- Autocomplete -->
-          <BaseAutocomplete v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Autocomplete with object" />
+          <BaseAutocomplete v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Select a celebrity" />
           <!-- Select with object -->
-          <BaseSelect v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Select with object" />
+          <BaseSelect v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Select a celebrity" />
         </div>
       </BaseCardbody>   
     </BaseCard>
