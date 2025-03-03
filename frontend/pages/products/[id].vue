@@ -47,7 +47,7 @@
         <div class="border-t-2 border-gray-100 my-5 me-10" />
 
         <div v-if="currentProduct" id="sizes" class="inline-flex gap-2 mb-4">
-          <button v-for="size in currentProduct.sizes" :key="size.id" type="button" :class="{'bg-gray-200': selectedSize === size.name, 'bg-gray-50': selectedSize !== size.name }" class="rounded-full w-10 h-10 text-sm font-normal place-items-center hover:bg-gray-100 hover:border-2 hover:border-gray-100" @click="selectedSize=size.name">
+          <button v-for="size in currentProduct.sizes" :key="size.id" type="button" :class="{'bg-gray-200': selectedSize === size.name, 'bg-gray-50': selectedSize !== size.name }" class="rounded-full w-10 h-10 text-sm font-normal place-content-center hover:bg-gray-100 hover:border-2 hover:border-gray-100" @click="selectedSize=size.name">
             <Icon v-if="!size.availability" name="fa-regular:clock" size="12" class="text-orange-400" />
             {{ size.name }}
           </button>
@@ -57,14 +57,24 @@
         <NuxtLink to="#" class="text-sm font-semibold underline underline-offset-2 block mt-2" @click="sizeGuide=true">
           Guide des tailles
         </NuxtLink>
+        
+        <Transition mode="out-in" class="transition-all duration-300">
+          <BaseButton v-if="sizeObject && sizeObject.availability" class="mt-10" color="primary" tonal :disabled="false" @click="showCart=true">
+            Ajouter au panier
+          </BaseButton>
 
-        <BaseButton class="mt-10" color="primary" tonal :disabled="false" @click="showModal=true">
-          Ajouter au panier
-        </BaseButton>
+          <BaseButton v-else class="mt-10 place-content-center" color="dark" tonal @click="availabilityModal=true">
+            <Icon name="fa:envelope" size="12" class="me-1" />
+            Me tenir informer
+          </BaseButton>
+        </Transition>
 
         <BaseList class="shadow-none border border-gray-100 mt-5">
           <BaseListitem class="border-b-2 border-gray-100 flex justify-between items-center text-sm" @click="sizeGuide=true">
-            Composition, soin et traçabilité
+            <div class="flex justify-start gap-2">
+              
+              <span>Composition, soin et traçabilité</span>
+            </div>
             <Icon name="fa:chevron-right" size="10" />
           </BaseListitem>
 
@@ -107,30 +117,60 @@
           <div class="flex gap-2">
             {{ y }}
             <BaseSelect v-model="selectedSize" :items="sizeNames" item-key="name" item-value="name" />
-            <BaseButton @click="showModal=true">Ajouter au panier</BaseButton>
+            <BaseButton @click="showCart=true">Ajouter au panier</BaseButton>
           </div>
         </div>
       </div>
     </ClientOnly>
 
-    <BaseModal v-model="zoomImage" fullscreen>
-      <BaseCard>
-        <div v-if="currentProduct && selectedImage" class="relative rounded-md">
-          <div class="flex absolute top-0 right-0 gap-2 z-40 p-5 bg-white">
-            <img v-for="image in currentProduct.images" :key="image.id" :src="image.original" :alt="image.name" width="70" :class="{ 'opacity-50': selectedImage.id === image.id}" class="cursor-pointer" @click="selectedImage=image">
+    <ClientOnly>
+      <BaseModal v-model="zoomImage" fullscreen>
+        <BaseCard>
+          <div v-if="currentProduct && selectedImage" class="relative rounded-md">
+            <div class="flex absolute top-0 right-0 gap-2 z-40 p-5 bg-white">
+              <img v-for="image in currentProduct.images" :key="image.id" :src="image.original" :alt="image.name" width="70" :class="{ 'opacity-50': selectedImage.id === image.id}" class="cursor-pointer" @click="selectedImage=image">
+            </div>
+            
+            <img :src="selectedImage.original" :alt="selectedImage.name" class="w-full cursor-zoom-out" @click="zoomImage=false">
           </div>
-          
-          <img :src="selectedImage.original" :alt="selectedImage.name" class="w-full cursor-zoom-out" @click="zoomImage=false">
-        </div>
-      </BaseCard>
-    </BaseModal>
-    <BaseOffcanvas v-model="sizeGuide" />
+        </BaseCard>
+      </BaseModal>
+    </ClientOnly>
 
-    <BaseModal v-model="showModal">
-      <BaseCard>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores debitis porro quasi adipisci similique tempore accusamus cupiditate magnam ipsa repellat. Possimus molestias voluptas ipsam iste quisquam distinctio minus, delectus aperiam.
-      </BaseCard>
-    </BaseModal>
+    <ClientOnly>
+      <BaseOffcanvas v-model="sizeGuide" />
+    </ClientOnly>
+
+    <ClientOnly>
+      <BaseModal v-model="availabilityModal">
+        <h2 class="text-2xl font-semibold mb-3">
+          La taille "{{ selectedSize }}" n'est plus en stock
+        </h2>
+
+        <p class="font-light">
+          Renseignes ton adresse e-mail dans le champ 
+          ci-dessous pour être averti lorsque cet article est 
+          de retour en stock
+        </p>
+
+        <form class="mt-4" @submit.prevent>
+          <BaseInput v-model="emailForAvailability" input-type="email" class="w-full block" placeholer="Addresse email" />
+          <BaseButton color="primary" class="w-full block">
+            S'inscrire
+          </BaseButton>
+        </form>
+      </BaseModal>
+    </ClientOnly>
+
+    <ClientOnly>
+      <BaseModal v-model="showCart">
+        <BaseCard>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores debitis 
+          porro quasi adipisci similique tempore accusamus cupiditate magnam ipsa repellat. 
+          Possimus molestias voluptas ipsam iste quisquam distinctio minus, delectus aperiam.
+        </BaseCard>
+      </BaseModal>
+    </ClientOnly>
   </section>
 </template>
 
@@ -141,9 +181,11 @@ import type { Product, ProductImage } from '~/types'
 const { currentProduct } = storeToRefs(useTemplates())
 
 const selectedImage = ref<ProductImage>()
-const showModal = ref(false)
+const showCart = ref(false)
 const zoomImage = ref(false)
 const sizeGuide = ref(false)
+const availabilityModal = ref(false)
+const emailForAvailability = ref('')
 const selectedSize = ref('')
 const recommendations = ref<Product[]>(products)
 
@@ -166,6 +208,13 @@ if (error.value) {
   createError(error.value)
 }
 
+const sizeObject = computed(() => {
+  if (currentProduct.value) {
+    return currentProduct.value.sizes.find(x => x.name === selectedSize.value)
+  } else {
+    return null
+  }
+})
 const showBanner = computed(() => y.value >= 1200 && y.value <= 2100)
 const isLoading = computed(() => status.value === 'pending')
 const sizeNames = computed(() => {

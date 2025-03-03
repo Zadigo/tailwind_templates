@@ -16,6 +16,9 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@iconify-json/fa": "^1.2.1",
+    "@iconify-json/fa-brands": "^1.2.1",
+    "@iconify-json/fa-regular": "^1.2.1",
     "@nuxt/icon": "^1.10.3",
     "@nuxt/image": "^1.9.0",
     "@vueuse/nuxt": "^12.7.0",

@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-type Color = 'primary' | 'success' | 'info' | 'warning' | 'secondary' | 'base'
+type Color = 'primary' | 'success' | 'info' | 'warning' | 'secondary' | 'base' | 'dark'
 
 const props = defineProps({
   to: {
@@ -62,13 +62,15 @@ onClickOutside(buttonEl, () => {
 
 const buttonColor = computed(() => {
   return [
+    'transition-all duration-300',
     {
       'bg-blue-400 hover:bg-blue-500': props.color === 'primary',
       'bg-green-400 hover:bg-green-500': props.color === 'success',
       'bg-yellow-400 hover:bg-yellow-500': props.color === 'warning',
       'bg-slate-400 hover:bg-slate-500': props.color === 'secondary',
       'bg-blue-300 hover:bg-blue-400': props.color === 'info',
-      'bg-gray-200 hover:bg-gray-300': props.color === 'base'
+      'bg-gray-200 hover:bg-gray-300': props.color === 'base',
+      'bg-black hover:opacity-60': props.color === 'dark'
     },
     {
       'text-white': props.color !== 'base'
@@ -93,15 +95,6 @@ const buttonClasses = computed(() => {
     'transition-all ease-in-out duration-[3000]',
     ...buttonColor.value,
     ...buttonShadow.value
-
-    // 'bg-blue-400',
-    // {
-    //   'hover:bg-blue-500': !props.disabled,
-    //   'shadow-md text-white': !props.tonal,
-    //   'bg-gray-100 text-black hover:bg-gray-200': props.tonal,
-    //   'bg-gray-300': props.active && props.tonal,
-    //   'bg-blue-400 shadow-none opacity-50': props.disabled
-    // }
   ]
 })
 

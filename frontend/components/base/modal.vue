@@ -25,11 +25,7 @@
         <BaseButtonclose @click="show=false" />
       </div>
 
-      <p class="font-light">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non sint eum velit, 
-        voluptatibus atque, dolorum totam laudantium, accusamus voluptatem cupiditate repudiandae 
-        enim. Eaque, harum. Facilis harum maiores explicabo animi iste.
-      </p>
+      <slot />
 
       <div class="flex justify-end">
         Footer

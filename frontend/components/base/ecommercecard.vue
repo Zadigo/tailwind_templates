@@ -1,9 +1,11 @@
 <template>
 <div class="group relative" @mouseover="showCart=true" @mouseleave="showCart=false">
+  <!-- Single Image -->
   <!-- <NuxtLink :to="`/products/${product.id}`">
     <img :src="product.get_main_image.original" :alt="product.get_main_image.name" class="w-full lg:aspect-auto">
   </NuxtLink> -->
 
+  <!-- Carousel -->
   <div class="relative">
     <button v-if="showCart" type="button" class="absolute top-2/4 left-3 py-5 rounded-full z-10 w-5 place-content-center hover:opacity-60 flex" @click="handlePreviousImage">
       <Icon name="fa:caret-left" class="" />
@@ -66,7 +68,7 @@
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import type { Product, ProductImage } from '~/types';
+import type { Product } from '~/types';
 
 const currentIndex = ref<number>(0)
 const showCart = ref(false)
