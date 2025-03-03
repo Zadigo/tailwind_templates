@@ -106,7 +106,7 @@
 
           <div class="flex gap-2">
             {{ y }}
-            <BaseSelect v-model="selectedSize" :items="sizeNames" />
+            <BaseSelect v-model="selectedSize" :items="sizeNames" item-key="name" item-value="name" />
             <BaseButton @click="showModal=true">Ajouter au panier</BaseButton>
           </div>
         </div>

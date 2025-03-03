@@ -79,6 +79,35 @@ export const footerData: Footer = {
                 {
                     name: 'Ecommerce - Products',
                     to: '/products'
+                },
+                {
+                    name: 'Histoire de la marque',
+                    to: '/products'
+                },
+                {
+                    name: 'Nous recrutons',
+                    to: '/products'
+                }
+            ]
+        },
+        {
+            name: 'Informations légales',
+            links: [
+                {
+                    name: 'Offres promotionnelles',
+                    to: '/'
+                },
+                {
+                    name: 'Mentions légales',
+                    to: '/'
+                },
+                {
+                    name: 'Conditions générales',
+                    to: '/'
+                },
+                {
+                    name: 'Charte de confidentialité',
+                    to: '/'
                 }
             ]
         }

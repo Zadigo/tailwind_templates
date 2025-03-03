@@ -5,6 +5,19 @@
         <NuxtLink to="/" class="block">
           <img src="https://tailwindui.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" alt="" class="h-10 aspect-square object-contain">
         </NuxtLink>
+
+        <div id="newsletter" class="mt-5">
+          <form @submite.prevent>
+            <p class="font-bold">Abonnez-vous à notre newsletter</p>
+            <BaseInput v-model="newsletter" placeholder="Mon email" input-type="email" />
+            <p class="mt-5 font-light w-3/4">  
+              En vous inscrivant, vous acceptez qu'Etam traite vos données personnelles, 
+              conformément à sa <NuxtLink to="/" class="underline underline-offset-4 text-blue-400 transition-all duration-300 hover:md:text-blue-600">Charte de Confidentialité</NuxtLink>, aux fins de vous adresser des communications commerciales. 
+              Vous pouvez à tout moment vous désabonner, en cliquant sur le lien "se désinscrire" 
+              figurant en bas de chaque e-mail.
+            </p>
+          </form>
+        </div>
       </div>
 
       <div :class="`grid gap-x-30 order-2 lg:grid-cols-${numberOfItems}`">
@@ -56,6 +69,8 @@ const props = defineProps({
     type: Object as PropType<Footer>
   }
 })
+
+const newsletter = ref('')
 
 const numberOfItems = computed(() => props.items?.sections.length || 0)
 </script>
