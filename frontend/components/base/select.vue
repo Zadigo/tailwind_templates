@@ -1,10 +1,10 @@
 <template>
   <div class="relative inline-block">
-    <BaseInput v-model="value" ref="inputEl" class="cursor-pointer transition-all ease hover:bg-gray-200" @click="isOpen=!isOpen" />
+    <BaseInput v-model="value" ref="inputEl" :placeholder="placeholder" class="cursor-pointer transition-all ease hover:bg-gray-200" @click="isOpen=!isOpen" />
     
     <BaseDropdown ref="menuEl" :is-open="isOpen">
       <BaseList>
-        <BaseListitem v-for="item in items" :key="item" @click="handleSelection(item)">
+        <BaseListitem v-for="item in computedItems" :key="item" @click="handleSelection(item)">
           {{ item }}
         </BaseListitem>
       </BaseList>
@@ -21,7 +21,19 @@ const props = defineProps({
     required: true
   },
   items: {
-    type: Object as PropType<string[]>
+    type: Object as PropType<string[] | Record<string, string | number | object>[]>
+  },
+  itemKey: {
+    type: String
+  },
+  itemValue: {
+    type: String
+  },
+  placeholder: {
+    type: String
+  },
+  selectFirst: {
+    type: Boolean
   }
 })
 
@@ -43,6 +55,28 @@ const value = computed({
   }
 })
 
+const computedItems = computed((): string[] => {
+  if (props.items) {
+    // Try to get a valid key if the
+    // item is an object
+    return props.items.map(x => {
+      if (typeof x === 'string' || typeof x === 'number') {
+        return `${x}`
+      }
+
+      if (typeof x === 'object') {
+        if (props.itemKey) {
+          return `${x[props.itemKey]}`.toString()
+        }
+      }
+
+      return `${typeof x}`
+    })
+  } else {
+    return []
+  }
+})
+
 // FIXME: When using this it immediately
 // closes the dropdown menu due to the fact
 // that the initial click was outside the
@@ -51,8 +85,23 @@ const value = computed({
 //   isOpen.value = false
 // })
 
-function handleSelection(item: string) {
+function handleSelection(item: string | Record<string, any>) {
   isOpen.value = false
-  emit('update:modelValue', item)
+  
+  if (typeof item === 'object') {
+    if (props.itemValue) {
+      emit('update:modelValue', `${item[props.itemValue]}`)
+    }
+  }
+
+  if (typeof item === 'string') {
+    emit('update:modelValue', item)
+  }
 }
+
+onMounted(() => {
+  if (props.selectFirst) {
+    value.value = computedItems.value[0]
+  }
+})
 </script>

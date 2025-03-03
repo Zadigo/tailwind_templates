@@ -1,5 +1,6 @@
 <template>
   <input v-model="value" :type="inputType" :placeholder="placeholder" class="p-3 bg-gray-100 rounded-md my-2 font-sans font-sm text-gray-500 !outline-none" @focus="emit('focus')" @click="emit('click')">
+  
   <!-- <div class="relative">
     <div class="absolute inset-y-0 left-0 pl-3 flex place-items-center">
       <Icon name="fa:search" class="absolute h-5 w-5 text-gray-400" />
@@ -44,10 +45,6 @@ const emit = defineEmits({
     return true
   }
 })
-
-const slots = useSlots()
-
-const hasDropdown = computed(() => !!slots.dropdown)
 
 const value = computed({
   get: () => props.modelValue,

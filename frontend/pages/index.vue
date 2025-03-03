@@ -9,6 +9,10 @@
           <BaseSelect v-model="search" :items="items" />
           <!-- Autocomplete -->
           <BaseAutocomplete v-model="search" :items="items" />
+          <!-- Autocomplete -->
+          <BaseAutocomplete v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Autocomplete with object" />
+          <!-- Select with object -->
+          <BaseSelect v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Select with object" />
         </div>
       </BaseCardbody>   
     </BaseCard>
