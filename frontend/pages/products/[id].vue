@@ -25,8 +25,8 @@
       </template>
       
       <!-- Details -->
-      <aside v-if="currentProduct" id="product-details" class="col-span-4 px-10">
-        <h1 id="product-name" class="text-xl mt-5 font-semibold">
+      <aside id="product-details" class="col-span-4 px-10">
+        <h1 v-if="currentProduct" id="product-name" class="text-xl mt-5 font-semibold">
           {{ currentProduct.name }}
         </h1>
 
