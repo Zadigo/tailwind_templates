@@ -20,6 +20,8 @@
           <BaseAutocomplete v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Select a celebrity" />
           <!-- Select with object -->
           <BaseSelect v-model="search" :items="[{ name: 'Kendall' }, { name: 211 }]" item-key="name" placeholder="Select a celebrity" />
+
+          <BaseSkeleton :loading="true" />
         </div>
       </BaseCardbody>   
     </BaseCard>

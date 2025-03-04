@@ -59,13 +59,13 @@
         </NuxtLink>
         
         <Transition mode="out-in" class="transition-all duration-300">
-          <BaseButton v-if="sizeObject && sizeObject.availability" class="mt-10" color="primary" tonal :disabled="false" @click="showCart=true">
-            Ajouter au panier
-          </BaseButton>
-
-          <BaseButton v-else class="mt-10 place-content-center" color="dark" tonal @click="availabilityModal=true">
+          <BaseButton v-if="selectedSize !== '' && sizeObject && !sizeObject.availability" class="mt-10 place-content-center" color="dark" tonal @click="availabilityModal=true">
             <Icon name="fa:envelope" size="12" class="me-1" />
             Me tenir informer
+          </BaseButton>
+
+          <BaseButton v-else class="mt-10" color="primary" tonal :disabled="false" @click="showCart=true">
+            Ajouter au panier
           </BaseButton>
         </Transition>
 
@@ -210,7 +210,7 @@ if (error.value) {
 
 const sizeObject = computed(() => {
   if (currentProduct.value) {
-    return currentProduct.value.sizes.find(x => x.name === selectedSize.value)
+    return currentProduct.value.sizes.find(x => x.name === selectedSize.value) || null
   } else {
     return null
   }
