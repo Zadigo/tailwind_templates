@@ -1,16 +1,20 @@
 <template>
-  <div :class="cn('rounded-md shadow-md bg-white w-full has-active:bg-slate-100', props.class)">
+  <div data-slot="list" :class="cn(listVariants({ variant }), props.class)">
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
+import { listVariants, ListVariants } from '@/components/ui/list'
 import { cn } from '@/lib/utils'
 
 import type { HTMLAttributes } from 'vue'
 
-const props = defineProps<{
-  class?: HTMLAttributes['class'],
-  active?: boolean
-}>()
+interface Props {
+  variant?: ListVariants['variant']
+  class?: HTMLAttributes['class']
+}
+
+
+const props = withDefaults(defineProps<Props>(), {})
 </script>

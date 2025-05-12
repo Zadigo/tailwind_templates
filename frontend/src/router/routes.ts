@@ -11,7 +11,7 @@ export const routes: RouteRecordRaw[] = [
         name: 'home'
       },
       {
-        path: 'components',
+        path: 'single-components',
         component: () => import('../pages/SingleComponents.vue'),
         name: 'components'
       }
