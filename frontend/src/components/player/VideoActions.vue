@@ -9,10 +9,10 @@
         </div>
 
         <div class="flex gap-2">
-          <Button v-if="isPlaying" variant="ghost" @click="emit('play-pause')">
+          <Button v-if="isPlaying" variant="ghost" @click="handlePlayPause">
             <Pause />
           </Button>
-          <Button v-else variant="ghost" @click="emit('play-pause')">
+          <Button v-else variant="ghost" @click="handlePlayPause">
             <Play />
           </Button>
 
@@ -58,7 +58,7 @@ const emit = defineEmits({
   action(_name: Action) {
     return true
   },
-  'play-pause'() {
+  'play-pause'(_count: number) {
     return true
   },
   rewind() {
@@ -79,6 +79,10 @@ const isPlaying = inject<Ref<boolean>>('isPlaying', ref(false))
 const duration = inject<Ref<number>>('duration', ref(0))
 const currentTime = inject<Ref<number>>('currentTime', ref(0))
 const volume = inject<Ref<number[]>>('volume', ref([50]))
+
+const playPauseCount = ref<number>(1)
+
+const { inc: increment } = useCounter(playPauseCount, { min: 0 })
 
 const isMuted = computed(() => {
   return volume.value[0] === 0
@@ -139,4 +143,12 @@ const currentTimeFormatted = computed(() => {
     return '00:00'
   }
 })
+
+/**
+ * Plays or pauses the video
+ */
+function handlePlayPause() {
+  increment()
+  emit('play-pause', playPauseCount.value)
+}
 </script>
