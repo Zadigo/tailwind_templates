@@ -107,6 +107,19 @@
           sed aliquid aperiam.
         </CardContent>
       </Card>
+
+      <Card class="mt-5">
+        <CardContent>
+          <!-- <VideoPlayer>
+            <VideoOverlay />
+            <VideoActions>
+              <VideoActionVolume />
+              <VideoActionMore />
+            </VideoActions>
+          </VideoPlayer> -->
+          <VideoRoot />
+        </CardContent>
+      </Card>
     </div>
   </section>
 </template>
