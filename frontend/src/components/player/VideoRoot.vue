@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Action, PlaybackRates, VideoData, VideoSettings } from '../player'
+import type { Action, PlaybackRates, VideoData, VideoSettings } from '.'
 
 interface Metadata {
   duration: number

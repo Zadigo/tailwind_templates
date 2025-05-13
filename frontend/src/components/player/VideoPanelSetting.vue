@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import type { VideoSettings, PlaybackRates } from '@/components/ui/player'
+import type { VideoSettings, PlaybackRates } from '@/components/player'
 import { ArrowRight } from 'lucide-vue-next'
 
 defineProps<{

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { VideoData } from '@/components/ui/player'
+import type { VideoData } from '@/components/player'
 
 const videoData = ref<VideoData>({
   src: '/vid1.mp4',

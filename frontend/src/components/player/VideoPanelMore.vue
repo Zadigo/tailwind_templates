@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { type PlaybackRates, playbackRates, type VideoSettings, videoSettings } from '@/components/ui/player'
+import { type PlaybackRates, playbackRates, type VideoSettings, videoSettings } from '@/components/player'
 import { ArrowLeft } from 'lucide-vue-next'
 
 const emit = defineEmits({

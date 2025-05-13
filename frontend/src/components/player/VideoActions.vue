@@ -49,10 +49,10 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from '../button'
+import { Button } from '../ui/button'
 import { Pause, Play, FastForward, Rewind, Volume, VolumeOff, Settings, Fullscreen } from 'lucide-vue-next'
 
-import type { Action } from '../player'
+import type { Action } from '.'
 
 const emit = defineEmits({
   action(_name: Action) {
