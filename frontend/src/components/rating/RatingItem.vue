@@ -1,15 +1,17 @@
 <template>
   <div class="flex items-center justify-start">
-    <RadioGroupItem :value="i" class="hidden" @click="handleSelection(i)" />
+    <!-- class="hidden" -->
+    <!-- :disabled="true" -->
+    <RadioGroupItem :value="i" @click="handleSelection(i)" />
 
-    <template v-if="isFilled(i)">
+    <slot v-if="isFilled(i)" name="on-icon">
       <Star fill="black" @click="handleSelection(i)" />
-    </template>
+    </slot>
 
-    <template v-else>
+    <slot v-else name="off-icon">
       <!-- :fill="currentlyHovered && (i <= currentlyHovered) ? 'black' : 'white'" -->
       <Star @mouseenter="handleHover(i)" @click="handleSelection(i)" />
-    </template>
+    </slot>
   </div>
 </template>
 
