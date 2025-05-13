@@ -115,6 +115,8 @@ declare module 'vue' {
     PopoverTrigger: typeof import('./../components/ui/popover/PopoverTrigger.vue')['default']
     RadioGroup: typeof import('./../components/ui/radio-group/RadioGroup.vue')['default']
     RadioGroupItem: typeof import('./../components/ui/radio-group/RadioGroupItem.vue')['default']
+    Rating: typeof import('./../components/rating/Rating.vue')['default']
+    RatingItem: typeof import('./../components/rating/RatingItem.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Select: typeof import('./../components/ui/select/Select.vue')['default']
@@ -165,6 +167,7 @@ declare module 'vue' {
     SiteWrapper: typeof import('./../layouts/SiteWrapper.vue')['default']
     Skeleton: typeof import('./../components/ui/skeleton/Skeleton.vue')['default']
     Slider: typeof import('./../components/ui/slider/Slider.vue')['default']
+    SquareBlock: typeof import('./../components/floor/SquareBlock.vue')['default']
     Switch: typeof import('./../components/ui/switch/Switch.vue')['default']
     Tabs: typeof import('./../components/ui/tabs/Tabs.vue')['default']
     TabsContent: typeof import('./../components/ui/tabs/TabsContent.vue')['default']
@@ -189,5 +192,6 @@ declare module 'vue' {
     VideoPanelVolume: typeof import('./../components/player/VideoPanelVolume.vue')['default']
     VideoPlayer: typeof import('../components/player/VideoPlayer.vue')['default']
     VideoRoot: typeof import('./../components/player/VideoRoot.vue')['default']
+    VueIcon: typeof import('@vueuse/components')['VueIcon']
   }
 }

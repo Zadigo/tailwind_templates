@@ -69,26 +69,30 @@ const data = {
       items: [
         {
           title: 'Cards',
-          url: '#'
+          url: 'home'
         },
         {
           title: 'Buttons',
-          url: '#'
+          url: 'home'
         },
         {
           title: 'Dropdowns',
-          url: '#'
+          url: 'home'
         }
       ]
     },
     {
-      title: 'YouTube',
+      title: 'Components',
       url: '#',
       icon: Bot,
       items: [
         {
-          title: 'Player',
+          title: 'YouTube',
           url: 'youtube_player'
+        },
+        {
+          title: 'Floor',
+          url: 'floor'
         }
       ]
     },

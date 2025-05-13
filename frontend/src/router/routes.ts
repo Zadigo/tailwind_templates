@@ -7,8 +7,13 @@ export const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        component: () => import('../pages/PageOne.vue'),
+        component: () => import('../pages/base_components/CardsPage.vue'),
         name: 'home'
+      },
+      {
+        path: 'rating',
+        component: () => import('../pages/base_components/RatingsPage.vue'),
+        name: 'rating'
       },
       {
         path: 'youtube-player',
@@ -17,8 +22,13 @@ export const routes: RouteRecordRaw[] = [
       },
       {
         path: 'single-components',
-        component: () => import('../pages/SingleComponents.vue'),
+        component: () => import('../pages/base_components/CardsPage.vue'),
         name: 'components'
+      },
+      {
+        path: 'floor',
+        component: () => import('../pages/floor/IndexPage.vue'),
+        name: 'floor'
       }
     ]
   }
