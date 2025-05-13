@@ -11,6 +11,11 @@ export const routes: RouteRecordRaw[] = [
         name: 'home'
       },
       {
+        path: 'youtube-player',
+        component: () => import('../pages/youtube/IndexPage.vue'),
+        name: 'youtube_player'
+      },
+      {
         path: 'single-components',
         component: () => import('../pages/SingleComponents.vue'),
         name: 'components'
