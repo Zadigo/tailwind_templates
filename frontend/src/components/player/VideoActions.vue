@@ -1,13 +1,13 @@
 <template>
-  <div class="absolute bottom-1/12 mx-auto left-0 z-50 w-full p-2" data-slot="video-actions">
+  <div class="absolute bottom-0.5 mx-auto left-0 z-50 w-full p-2" data-slot="video-actions">
     <div class="max-w-2xl mx-auto bg-accent/50 p-5 rounded-md relative">
       <slot />
-      
+
       <div class="grid grid-cols-2">
         <div class="col-span-2 py-2">
           <Slider v-model="sliderCurrentTime" :min="0" :max="duration" :step="0.1" class="px-2" />
         </div>
-        
+
         <div class="flex gap-2">
           <Button v-if="isPlaying" variant="ghost" @click="emit('play-pause')">
             <Pause />
@@ -15,7 +15,7 @@
           <Button v-else variant="ghost" @click="emit('play-pause')">
             <Play />
           </Button>
-          
+
           <Button variant="ghost" @click="emit('rewind')">
             <Rewind />
           </Button>
@@ -75,39 +75,38 @@ const emit = defineEmits({
   }
 })
 
-const isPlaying = inject<Ref<boolean>>('isPlaying')
-const duration = inject<Ref<number>>('duration')
-const currentTime = inject<Ref<number>>('currentTime')
-const volume = inject<Ref<number[]>>('volume')
+const isPlaying = inject<Ref<boolean>>('isPlaying', ref(false))
+const duration = inject<Ref<number>>('duration', ref(0))
+const currentTime = inject<Ref<number>>('currentTime', ref(0))
+const volume = inject<Ref<number[]>>('volume', ref([50]))
 
 const isMuted = computed(() => {
-  return volume?.value[0] === 0
+  return volume.value[0] === 0
 })
 
 /**
  * Computed property that takes the current time
- * and is able to set the current 
+ * and is able to set the current
  */
 const sliderCurrentTime = computed({
   get: () => {
-    const value = currentTime?.value || 0
+    const value = currentTime.value
     return [value]
   },
   set: (value) => {
-    currentTime.value = value
+    currentTime.value = value[0]
     emit('update:CurrentTime', value)
   }
 })
-
 
 /**
  * Formats the time to a human readable
  * format for the user to track the
  * time at which the video is currently at
- * 
+ *
  * @param value The time value to format
  */
- function formatTime (value: number) {
+function formatTime(value: number) {
   const hours = Math.floor(value / 3600)
   const minutes = Math.floor((value % 3600) / 60)
   const seconds = Math.floor(value % 60)
@@ -126,7 +125,7 @@ const sliderCurrentTime = computed({
 }
 
 const durationFormatted = computed(() => {
-  if (duration?.value) {
+  if (duration.value) {
     return formatTime(duration.value)
   } else {
     return '00:00'
@@ -134,7 +133,7 @@ const durationFormatted = computed(() => {
 })
 
 const currentTimeFormatted = computed(() => {
-  if (currentTime?.value) {
+  if (currentTime.value) {
     return formatTime(currentTime.value)
   } else {
     return '00:00'

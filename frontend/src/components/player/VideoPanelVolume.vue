@@ -5,26 +5,6 @@
 </template>
 
 <script setup lang="ts">
-// const props = defineProps({
-//   modelValue: {
-//     type: Array as PropType<number[]>,
-//     default: () => [100]
-//   }
-// })
-
-// const emit = defineEmits({
-//   'update:modelValue'(_value: number[]) {
-//     return true
-//   }
-// })
-
-// const volume = computed({
-//   get: () => [props.modelValue[0] * 100],
-//   set: (value) => {
-//     emit('update:modelValue', [value[0] / 100])
-//   }
-// })
-
 const emit = defineEmits({
   close() {
     return true
@@ -33,20 +13,14 @@ const emit = defineEmits({
 
 const volumePanelRef = useTemplateRef('volumePanelRef')
 
-const volumeRef = inject<Ref<number[]>>('volume')
+const volumeRef = inject<Ref<number[]>>('volume', ref([0.5]))
 
 const volume = computed({
   get: () => {
-    if (volumeRef) {
-      return [volumeRef.value[0] * 100]
-    } else {
-      return [0]
-    }
+    return [volumeRef.value[0] * 100]
   },
   set: (value) => {
-    if (volumeRef) {
-      volumeRef.value = [value[0] / 100]
-    }
+    volumeRef.value = [value[0] / 100]
   }
 })
 

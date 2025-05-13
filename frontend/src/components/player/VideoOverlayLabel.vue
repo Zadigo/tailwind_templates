@@ -5,11 +5,16 @@
         <img src="/avatar1.png" class="w-[50px] rounded-md aspect-square object-contain">
 
         <div class="flex flex-col">
-          <h4 class="font-bold">Some title</h4>
-          <p class="font-light">00:34</p>
+          <h4 class="font-bold">
+            Some title
+          </h4>
+
+          <p class="font-light">
+            00:34
+          </p>
         </div>
       </div>
-      
+
       <div id="actions" class="flex items-center justify-end">
         <Button variant="ghost" @click="emit('load-video', '/vid2.mp4')">
           <Play />

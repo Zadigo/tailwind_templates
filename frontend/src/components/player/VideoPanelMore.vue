@@ -37,7 +37,7 @@ onClickOutside(videoPanelRef, () => {
 
 /**
  * Display a subelement of the selected setting
- * 
+ *
  * @param name Name of the setting component to display
  */
 function selectSetting(name: VideoSettings) {

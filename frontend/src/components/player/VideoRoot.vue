@@ -21,19 +21,12 @@
       <p>W x H: {{ width }} x {{ height }}</p>
     </div>
 
-
-    <!-- <VideoOverlay>
-      <VideoOverlayMoreVideos v-show="hasEnded" @load-video="handleLoadVideo" />
-      <VideoOverlayLabel @load-video="handleLoadVideo" />
-    </VideoOverlay> -->
-
-    <slot v-bind:hasEnded="hasEnded" v-bind:currentTime="currentTime" v-bind:isLoading="isLoading" />
+    <slot :has-ended="hasEnded" :current-time="currentTime" :is-loading="isLoading" :is-playing="isPlaying" />
 
     <Transition enter-active-class="animate-in fade-in" leave-active-class="animate-out fade-out">
       <VideoActions v-if="showControls" @rewind="handleRewind" @fast-forward="handleFastForward" @play-pause="handlePlayPause" @action="handleActions" @update:current-time="handleUpdateCurrentTime" @fullscreen="async () => await enter()">
         <Transition enter-active-class="animate-in zoom-in-10 animate-fade-in" leave-active-class="animate-out zoom-out-10 animate-fade-out">
           <VideoPanelVolume v-if="showVolume" @close="showVolume=false" />
-          <!-- v-model="volume" -->
         </Transition>
 
         <Transition enter-active-class="animate-in zoom-in-10" leave-active-class="animate-out zoom-out-10">
@@ -41,7 +34,6 @@
         </Transition>
       </VideoActions>
     </Transition>
-    
   </div>
 </template>
 
@@ -55,10 +47,12 @@ interface Metadata {
 
 const props = defineProps({
   modelValue: {
-    type: String
+    type: String,
+    required: true
   },
   videoData: {
-    type: Object as PropType<VideoData>
+    type: Object as PropType<VideoData>,
+    required: true
   }
 })
 
@@ -89,8 +83,8 @@ const duration = ref<number>(0)
 const currentTime = ref<number>(0)
 const volume = ref<number[]>([0.5])
 
-const speed = ref<string>('1x')
-const quality = ref<string>('1080p')
+const playbackRate = ref<PlaybackRates>(1)
+// const quality = ref<string>('1080p')
 
 const showControls = ref<boolean>(true)
 const showVolume = ref<boolean>(false)
@@ -105,7 +99,7 @@ provide('volume', volume)
  * Calculates the current completion of the
  * video in percentage on the total duration
  */
- const completionPercentage = computed(() => {
+const completionPercentage = computed(() => {
   return Math.floor((currentTime.value / duration.value) * 100)
 })
 
@@ -149,6 +143,12 @@ watchDebounced(() => props.modelValue, (newValue) => {
   }
 })
 
+watch(playbackRate, (newValue) => {
+  if (videoEl.value) {
+    videoEl.value.playbackRate = newValue
+  }
+})
+
 /**
  * Return to the start of the video if the video
  * has ended otherwise, rewind to a given time
@@ -186,14 +186,14 @@ function handleActions(action: Action) {
     showVolume.value = !showVolume.value
   }
 
-  if (action ===  'more') {
+  if (action === 'more') {
     showVolume.value = false
     showSettings.value = !showSettings.value
   }
 }
 
 /**
- * 
+ *
  */
 function handleHover() {
   // showControls.value = !showControls.value
@@ -225,28 +225,29 @@ function handleLoadMetadata(e: Event) {
 }
 
 /**
- *
+ * Plays or pauses the video
  */
 function handlePlayPause() {
   if (videoEl.value) {
     if (videoEl.value.paused) {
       videoEl.value.play()
+      isPlaying.value = true
     } else {
       videoEl.value.pause()
+      isPlaying.value = false
     }
 
     if (!wasPlayed.value) {
       wasPlayed.value = true
     }
-    
-    isPlaying.value = !isPlaying.value
+
     emit('play-pause')
   }
 }
 
 /**
- * 
- * @param value 
+ *
+ * @param value The time to set on the on video
  */
 function handleUpdateCurrentTime(value: number) {
   if (videoEl.value) {
@@ -256,25 +257,25 @@ function handleUpdateCurrentTime(value: number) {
 
 /**
  * Changes the current source to another video source
- * 
+ *
  * @param value The url or path to the video to play
  */
-function handleLoadVideo(value: string) {
-  if (videoEl.value) {
-    emit('load-video', value)
-    videoEl.value.src = value
-  }
-}
+// function handleLoadVideo(value: string) {
+//   if (videoEl.value) {
+//     emit('load-video', value)
+//     videoEl.value.src = value
+//   }
+// }
 
 /**
- * 
+ *
  * @param name The name of the setting
  * @param value The value of the setting to set
  */
 function handleSettingValue(name: VideoSettings, value: PlaybackRates) {
   if (videoEl.value) {
     if (name === 'Speed') {
-      videoEl.value.playbackRate = value
+      playbackRate.value = value
     }
   }
 }

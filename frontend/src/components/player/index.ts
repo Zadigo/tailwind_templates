@@ -30,3 +30,9 @@ export const playbackRates = [
 ] as const
 
 export type PlaybackRates = (typeof playbackRates)[number]
+
+export interface VideoDetail {
+  id: number
+  title: string
+  src: string
+}
