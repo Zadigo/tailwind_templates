@@ -1,37 +1,66 @@
 <template>
-  <div data-slot="video-root" class="relative" @mouseenter="handleHover" @mouseleave="handleHover">
+  <div data-slot="video-root" class="relative min-h-[300px] w-full" @mouseenter="handleHover" @mouseleave="handleHover">
+    <!-- <VideoLoader v-if="isLoading" /> -->
     <video ref="videoEl" class="rounded-md cursor-pointer" preload="metadata" controlslist="nodownload" oncontextmenu="return false;" @timeupdate="updateDetails" @loadedmetadata="handleLoadMetadata" @click="handlePlayPause">
-      <source src="/vid1.mp4" type="video/mp4" class="aspect-square object-fill w-full h-full">
-      Your browser does not support the video tag.
+      <source :src="currentVideoUrl" type="video/mp4" class="aspect-square object-fill w-full h-full">
+      Your browser does not support the video tag
     </video>
 
-    <VideoOverlay>
-      <VideoOverlayMoreVideos @load-video="handleLoadVideo" />
-    </VideoOverlay>
+    <div class="p-3 bg-yellow-200/70 my-5 rounded-2xl absolute top-1.5 left-1.5 w-[220px]">
+      <p>is playing: {{ isPlaying }}</p>
+      <p>is loading: {{ isLoading }}</p>
+      <p>has ended: {{ hasEnded }}</p>
+      <p>was played: {{ wasPlayed }}</p>
+      <p>duration: {{ duration }}</p>
+      <p>current time: {{ currentTime }}</p>
+      <p>volume: {{ volume }}</p>
+      <p>show controls: {{ showControls }}</p>
+      <p>show volume: {{ showVolume }}</p>
+      <p>show settings: {{ showSettings }}</p>
+      <p>pct: {{ completionPercentage }}%</p>
+      <p>W x H: {{ width }} x {{ height }}</p>
+    </div>
+
+
+    <!-- <VideoOverlay>
+      <VideoOverlayMoreVideos v-show="hasEnded" @load-video="handleLoadVideo" />
+      <VideoOverlayLabel @load-video="handleLoadVideo" />
+    </VideoOverlay> -->
+
+    <slot v-bind:hasEnded="hasEnded" v-bind:currentTime="currentTime" v-bind:isLoading="isLoading" />
 
     <Transition enter-active-class="animate-in fade-in" leave-active-class="animate-out fade-out">
-      <VideoActions v-if="showControls" @rewind="handleRewind" @fast-forward="handleFastForward" @play-pause="handlePlayPause" @action="handleActions" @update:current-time="handleUpdateCurrentTime">
+      <VideoActions v-if="showControls" @rewind="handleRewind" @fast-forward="handleFastForward" @play-pause="handlePlayPause" @action="handleActions" @update:current-time="handleUpdateCurrentTime" @fullscreen="async () => await enter()">
         <Transition enter-active-class="animate-in zoom-in-10 animate-fade-in" leave-active-class="animate-out zoom-out-10 animate-fade-out">
           <VideoPanelVolume v-if="showVolume" @close="showVolume=false" />
           <!-- v-model="volume" -->
         </Transition>
 
         <Transition enter-active-class="animate-in zoom-in-10" leave-active-class="animate-out zoom-out-10">
-          <VideoPanelMore v-if="showActions" />
+          <VideoPanelMore v-if="showSettings" @close="showSettings=false" />
         </Transition>
       </VideoActions>
     </Transition>
-    <slot />
+    
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Action } from '../player'
+import type { Action, VideoData } from '../player'
 
 interface Metadata {
   duration: number
   currentTime: number
 }
+
+const props = defineProps({
+  modelValue: {
+    type: String
+  },
+  videoData: {
+    type: Object as PropType<VideoData>
+  }
+})
 
 const emit = defineEmits({
   'play-pause'() {
@@ -39,10 +68,18 @@ const emit = defineEmits({
   },
   metadata(_data: Metadata) {
     return true
+  },
+  'update:modelValue'(_value: string) {
+    return true
+  },
+  'load-video'(_value: string) {
+    return true
   }
 })
 
 const videoEl = useTemplateRef('videoEl')
+const { width, height } = useElementSize(videoEl)
+const { enter } = useFullscreen(videoEl)
 
 const isPlaying = ref<boolean>(false)
 const isLoading = ref<boolean>(true)
@@ -57,16 +94,25 @@ const quality = ref<string>('1080p')
 
 const showControls = ref<boolean>(true)
 const showVolume = ref<boolean>(false)
-const showActions = ref<boolean>(false)
+const showSettings = ref<boolean>(false)
 
 provide('isPlaying', isPlaying)
 provide('duration', duration)
 provide('currentTime', currentTime)
 provide('volume', volume)
 
-watch(volume, (newValue) => {
-  if (videoEl.value) {
-    videoEl.value.volume = newValue[0]
+/**
+ * Calculates the current completion of the
+ * video in percentage on the total duration
+ */
+ const completionPercentage = computed(() => {
+  return Math.floor((currentTime.value / duration.value) * 100)
+})
+
+const currentVideoUrl = computed({
+  get: () => props.modelValue,
+  set: (value) => {
+    emit('update:modelValue', value)
   }
 })
 
@@ -79,6 +125,29 @@ const hasEnded = computed(() => {
 })
 
 provide('hasEnded', hasEnded)
+
+watch(volume, (newValue) => {
+  if (videoEl.value) {
+    videoEl.value.volume = newValue[0]
+  }
+})
+
+watchDebounced(() => props.modelValue, (newValue) => {
+  if (videoEl.value) {
+    if (newValue) {
+      videoEl.value.src = newValue
+    }
+  }
+}, {
+  debounce: 2000,
+  maxWait: 5000,
+  onTrack() {
+    isLoading.value = true
+  },
+  onTrigger() {
+    isLoading.value = false
+  }
+})
 
 /**
  * Return to the start of the video if the video
@@ -113,13 +182,13 @@ function handleFastForward() {
  */
 function handleActions(action: Action) {
   if (action === 'volume') {
-    showActions.value = false
+    showSettings.value = false
     showVolume.value = !showVolume.value
   }
 
   if (action ===  'more') {
     showVolume.value = false
-    showActions.value = !showActions.value
+    showSettings.value = !showSettings.value
   }
 }
 
@@ -192,7 +261,8 @@ function handleUpdateCurrentTime(value: number) {
  */
 function handleLoadVideo(value: string) {
   if (videoEl.value) {
-    // Pass
+    emit('load-video', value)
+    videoEl.value.src = value
   }
 }
 

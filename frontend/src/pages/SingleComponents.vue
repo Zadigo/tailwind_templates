@@ -101,9 +101,9 @@
         <CardImage src="/avatar2.png" />
 
         <CardContent>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Quibusdam exercitationem voluptatum, amet unde earum ipsa obcaecati dolor 
-          voluptate dolorem dolores vel cumque repudiandae reiciendis asperiores odio at, 
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Quibusdam exercitationem voluptatum, amet unde earum ipsa obcaecati dolor
+          voluptate dolorem dolores vel cumque repudiandae reiciendis asperiores odio at,
           sed aliquid aperiam.
         </CardContent>
       </Card>

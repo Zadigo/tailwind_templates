@@ -35,6 +35,10 @@
             <Volume v-else />
           </Button>
 
+          <Button variant="ghost" @click="emit('fullscreen')">
+            <Fullscreen />
+          </Button>
+
           <Button variant="ghost" @click="emit('action', 'more')">
             <Settings />
           </Button>
@@ -46,7 +50,7 @@
 
 <script setup lang="ts">
 import { Button } from '../button'
-import { Pause, Play, FastForward, Rewind, Volume, VolumeOff, Settings } from 'lucide-vue-next'
+import { Pause, Play, FastForward, Rewind, Volume, VolumeOff, Settings, Fullscreen } from 'lucide-vue-next'
 
 import type { Action } from '../player'
 
@@ -64,6 +68,9 @@ const emit = defineEmits({
     return true
   },
   'update:CurrentTime'(_value: number[]) {
+    return true
+  },
+  fullscreen() {
     return true
   }
 })

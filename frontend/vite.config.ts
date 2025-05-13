@@ -2,7 +2,6 @@
 
 import { defineConfig, loadEnv } from 'vite'
 import { resolve } from 'path'
-import {  } from '@unhead/vue'
 
 import tailwind from '@tailwindcss/vite'
 import unheadVite from '@unhead/addons/vite'
@@ -41,6 +40,16 @@ export default defineConfig(({ mode }) => {
         ],
         extensions: [
           'vue'
+        ],
+        resolvers: [
+          (componentName) => {
+            if (componentName.startsWith('Use') || componentName.startsWith('On') || componentName.startsWith('V')) {
+              return {
+                name: componentName,
+                from: '@vueuse/components'
+              }
+            }
+          }
         ]
       }),
       viteAutoImport({
