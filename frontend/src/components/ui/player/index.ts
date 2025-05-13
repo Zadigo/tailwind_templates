@@ -21,3 +21,12 @@ export interface VideoData {
     src: string
   }[]
 }
+
+export const playbackRates = [
+  0.25,
+  0.5,
+  1,
+  2
+] as const
+
+export type PlaybackRates = (typeof playbackRates)[number]

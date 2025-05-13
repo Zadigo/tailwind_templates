@@ -37,7 +37,7 @@
         </Transition>
 
         <Transition enter-active-class="animate-in zoom-in-10" leave-active-class="animate-out zoom-out-10">
-          <VideoPanelMore v-if="showSettings" @close="showSettings=false" />
+          <VideoPanelMore v-if="showSettings" @close="showSettings=false" @setting-value="handleSettingValue" />
         </Transition>
       </VideoActions>
     </Transition>
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Action, VideoData } from '../player'
+import type { Action, PlaybackRates, VideoData, VideoSettings } from '../player'
 
 interface Metadata {
   duration: number
@@ -72,7 +72,7 @@ const emit = defineEmits({
   'update:modelValue'(_value: string) {
     return true
   },
-  'load-video'(_value: string) {
+  'load-video'(_url: string) {
     return true
   }
 })
@@ -263,6 +263,19 @@ function handleLoadVideo(value: string) {
   if (videoEl.value) {
     emit('load-video', value)
     videoEl.value.src = value
+  }
+}
+
+/**
+ * 
+ * @param name The name of the setting
+ * @param value The value of the setting to set
+ */
+function handleSettingValue(name: VideoSettings, value: PlaybackRates) {
+  if (videoEl.value) {
+    if (name === 'Speed') {
+      videoEl.value.playbackRate = value
+    }
   }
 }
 

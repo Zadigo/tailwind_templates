@@ -185,6 +185,7 @@ declare module 'vue' {
     VideoOverlayLabel: typeof import('./../components/ui/player/VideoOverlayLabel.vue')['default']
     VideoOverlayMoreVideos: typeof import('./../components/ui/player/VideoOverlayMoreVideos.vue')['default']
     VideoPanelMore: typeof import('./../components/ui/player/VideoPanelMore.vue')['default']
+    VideoPanelSetting: typeof import('./../components/ui/player/VideoPanelSetting.vue')['default']
     VideoPanelVolume: typeof import('./../components/ui/player/VideoPanelVolume.vue')['default']
     VideoPlayer: typeof import('./../components/ui/player/VideoPlayer.vue')['default']
     VideoRoot: typeof import('./../components/ui/player/VideoRoot.vue')['default']
