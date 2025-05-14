@@ -11,6 +11,16 @@ export const routes: RouteRecordRaw[] = [
         name: 'home'
       },
       {
+        path: 'buttons',
+        component: () => import('../pages/base_components/ButtonsPage.vue'),
+        name: 'buttons'
+      },
+      {
+        path: 'oganization',
+        component: () => import('../pages/base_components/OrganizationPage.vue'),
+        name: 'oganization'
+      },
+      {
         path: 'rating',
         component: () => import('../pages/base_components/RatingsPage.vue'),
         name: 'rating'

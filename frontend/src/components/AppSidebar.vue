@@ -73,11 +73,15 @@ const data = {
         },
         {
           title: 'Buttons',
-          url: 'home'
+          url: 'buttons'
         },
         {
           title: 'Dropdowns',
           url: 'home'
+        },
+        {
+          title: 'Organization',
+          url: 'oganization'
         }
       ]
     },
