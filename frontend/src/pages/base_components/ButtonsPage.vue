@@ -74,6 +74,40 @@
           </DropdownMenuContent>
         </template>
       </SplitButton>
+
+      <div class="max-w-[400px] my-10">
+        {{ myCountries }}
+
+        <Listbox v-model="myCountries" :items="countries">
+          <template #search>
+            <ListboxSearch />
+          </template>
+
+          <ListboxItem v-for="country in countries" :key="country" :value="country">
+            <template #default="{ options }">
+              <!-- <VueIcon icon="fa-solid:user" /> -->
+              {{ options.value }}
+            </template>
+          </ListboxItem>
+        </Listbox>
+      </div>
     </CardContent>
   </Card>
 </template>
+
+<script setup lang="ts">
+const countries = [
+  'France',
+  'Italy',
+  'Germany',
+  'China',
+  'Mali',
+  'Spain',
+  'Congo',
+  'Suriname',
+  'Pakistan',
+  'Iran'
+]
+
+const myCountries = ref<string[]>([])
+</script>>

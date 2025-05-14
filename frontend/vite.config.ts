@@ -43,7 +43,7 @@ export default defineConfig(({ mode }) => {
         ],
         resolvers: [
           (componentName) => {
-            if (componentName.startsWith('Use') || componentName.startsWith('On') || componentName.startsWith('V')) {
+            if (componentName.startsWith('Use')) {
               return {
                 name: componentName,
                 from: '@vueuse/components'
