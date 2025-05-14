@@ -16,11 +16,12 @@
         </td>
       </tr>
 
-      <!-- Connectors -->
+      <!-- Vertical -->
       <tr v-if="hasChildren" id="connector">
         <td :colspan="colspan" class="border-l-2 border-l-red-400 h-10" />
       </tr>
 
+      <!-- Horizontal -->
       <tr v-if="hasChildren" id="connector">
         <template v-if="childrenCount === 1">
           <td :colspan="2" class="border-l-2 border-l-red-400 h-10" />
